@@ -13,4 +13,9 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataAccess\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>
