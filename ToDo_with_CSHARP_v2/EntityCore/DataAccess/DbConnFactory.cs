@@ -1,7 +1,7 @@
 ﻿using System.Data;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 
-namespace EntityCore.DataAccess
+namespace ToDo_with_CSHARP_v2.EntityCore.DataAccess
 {
     public interface IDbConnectionFactory
     {

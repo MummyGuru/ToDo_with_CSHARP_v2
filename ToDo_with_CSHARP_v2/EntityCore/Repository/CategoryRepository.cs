@@ -1,9 +1,12 @@
 ﻿using Dapper;
-using EntityCore.DataAccess;
-using EntityCore.Models;
-using EntityCore.Repository.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ToDo_with_CSHARP_v2.EntityCore.Repository.Interfaces;
+using ToDo_with_CSHARP_v2.EntityCore.DataAccess;
+using ToDo_with_CSHARP_v2.EntityCore.Models;
+using System.Linq;
 
-namespace EntityCore.Repository
+namespace ToDo_with_CSHARP_v2.EntityCore.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {

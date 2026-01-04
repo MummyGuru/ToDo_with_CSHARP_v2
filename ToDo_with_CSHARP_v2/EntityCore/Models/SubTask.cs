@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EntityCore.Models
+namespace ToDo_with_CSHARP_v2.EntityCore.Models
 {
     public class SubTask
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace EntityCore.Models
+namespace ToDo_with_CSHARP_v2.EntityCore.Models
 {
     public class Task
     {

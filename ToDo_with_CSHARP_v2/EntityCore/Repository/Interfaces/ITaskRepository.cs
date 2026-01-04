@@ -1,7 +1,8 @@
-﻿using EntityCore.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ToDo_with_CSHARP_v2.EntityCore.Models;
 
-namespace EntityCore.Repository.Interfaces
+namespace ToDo_with_CSHARP_v2.EntityCore.Repository.Interfaces
 {
     public interface ITaskRepository
     {
