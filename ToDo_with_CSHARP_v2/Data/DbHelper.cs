@@ -1,12 +1,11 @@
 ﻿using System.Data.SqlClient;
-using Dapper;
 
-public static class DbHelper
+namespace ToDo_with_CSHARP_v2.Data
 {
-    private static string ConnectionString = "Server=AN515-52\\SQLEXPRESS;Database=ToDoDB;Trusted_Connection=True;";
-
-    public static SqlConnection GetConnection()
+    public static class DbHelper
     {
-        return new SqlConnection(ConnectionString);
+        private static string ConnectionString = "Server=AN515-52\\SQLEXPRESS;Database=ToDoDB;Trusted_Connection=True;";
+
+        public static SqlConnection GetConnection() => new SqlConnection(ConnectionString);
     }
 }

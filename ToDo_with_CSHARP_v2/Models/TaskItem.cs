@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace ToDo_with_CSHARP_v2.Models
+{
     public class TaskItem
     {
         public int Id { get; set; }
@@ -12,9 +14,13 @@
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public bool IsOverdue => Deadline.HasValue && Deadline.Value < DateTime.Now && StatusName != "Готово";
-
         public string StatusName { get; set; }
         public string CategoryName { get; set; }
         public string CategoryColor { get; set; }
+
+        public bool IsOverdue =>
+            Deadline.HasValue &&
+            Deadline.Value < DateTime.Now &&
+            StatusName != "Готово";
     }
+}

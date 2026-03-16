@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows.Input;
+using ToDo_with_CSHARP_v2.Data;
+using ToDo_with_CSHARP_v2.Models;
 
 namespace ToDo_with_CSHARP_v2
 {
@@ -27,82 +29,61 @@ namespace ToDo_with_CSHARP_v2
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка подключения к БД: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка БД: {ex.Message}");
             }
         }
 
         private void FilterTasks()
         {
-            string keyword = txtSearch.Text.Trim();
-
-            if (string.IsNullOrEmpty(keyword))
-            {
-                dgTasks.ItemsSource = _allTasks;
-            }
-            else
-            {
-                var filtered = _repo.SearchTasks(keyword);
-                dgTasks.ItemsSource = filtered;
-            }
+            string key = txtSearch.Text.Trim();
+            dgTasks.ItemsSource = string.IsNullOrEmpty(key) ? _allTasks : _repo.SearchTasks(key);
         }
 
-        // Событие поиска
-        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            FilterTasks();
-        }
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e) => FilterTasks();
 
-        // Кнопка Обновить
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            LoadTasks();
             txtSearch.Clear();
+            LoadTasks();
         }
 
-        // Кнопка Удалить
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (dgTasks.SelectedItem is TaskItem selectedTask)
+            if (dgTasks.SelectedItem is TaskItem task)
             {
-                var result = MessageBox.Show($"Удалить задачу \"{selectedTask.Title}\"?", "Подтверждение",
-                                             MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Удалить задачу \"{task.Title}\"?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    _repo.DeleteTask(selectedTask.Id);
+                    _repo.DeleteTask(task.Id);
                     LoadTasks();
                 }
             }
             else
             {
-                MessageBox.Show("Выберите задачу для удаления.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Выберите задачу для удаления.");
             }
         }
 
-        // Кнопка Добавить (Заглушка для демонстрации)
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            // Для полноценной реализации нужно открывать второе окно (Dialog)
-            // Сейчас сделаем простую демонстрацию добавления "тестовой" задачи
-            var newTask = new TaskItem
-            {
-                Title = "Новая задача из WPF",
-                Description = "Создана автоматически для теста",
-                Priority = 2,
-                StatusId = 1, // Новая
-                CategoryId = 1,
-                Deadline = DateTime.Now.AddDays(2)
-            };
+            OpenTaskDialog(null);
+        }
 
-            try
+        private void DgTasks_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgTasks.SelectedItem is TaskItem task)
             {
-                _repo.AddTask(newTask);
-                MessageBox.Show("Задача успешно добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoadTasks();
+                OpenTaskDialog(task);
             }
-            catch (Exception ex)
+        }
+
+        private void OpenTaskDialog(TaskItem taskToEdit)
+        {
+            var dialog = new TaskDialogWindow(taskToEdit, _repo);
+            dialog.Owner = this;
+
+            if (dialog.ShowDialog() == true)
             {
-                MessageBox.Show($"Ошибка при добавлении: {ex.Message}");
+                LoadTasks();
             }
         }
     }

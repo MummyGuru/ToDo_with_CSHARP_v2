@@ -1,7 +1,11 @@
-﻿public class Category
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string ColorCode { get; set; }
-    public string Description { get; set; }
+﻿namespace ToDo_with_CSHARP_v2.Models
+
+{ 
+    public class Category 
+    { 
+        public int Id { get; set; } 
+        public string Name { get; set; } 
+        public string ColorCode { get; set; } 
+        public string Description { get; set; } 
+    } 
 }
